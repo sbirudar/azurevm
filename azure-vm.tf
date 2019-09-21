@@ -47,10 +47,10 @@ resource "azurerm_subnet" "azure_subnet" {
   address_prefix       = "10.0.1.0/24"
 }
 
-resource "azurerm_public_ip" "test" {
-  name                = "acceptanceTestPublicIp1"
-  location            = "West US"
-  resource_group_name = "${azurerm_resource_group.test.name}"
+resource "azurerm_public_ip" "azure_public_ip" {
+  name                = "${var.prefix}-publicip"
+  location            = "Central US"
+  resource_group_name = "${azurerm_resource_group.azure_rg.name}"
   allocation_method   = "Static"
 
   tags = {
@@ -111,5 +111,5 @@ resource "azurerm_virtual_machine" "azure_vm" {
 
 output "public_ip_address" {
   description = "The actual ip address allocated for the resource."
-  value       = "${azurerm_public_ip.test.ip_address}"
+  value       = "${azurerm_public_ip.azure_public_ip.ip_address}"
 }
